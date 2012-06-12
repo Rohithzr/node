@@ -119,8 +119,14 @@ be sent `'SIGTERM'`. See `signal(7)` for a list of available signals.
     // send SIGHUP to process
     grep.kill('SIGHUP');
 
-Note that while the function is called `kill`, the signal delivered to the child
-process may not actually kill it.  `kill` really just sends a signal to a process.
+Although the function is called `kill`, the signal delivered to the child
+process may not actually kill it.  `kill` really just sends a signal to a
+process.
+
+Also note that if the child process already exited when `kill` is called,
+an exception will be thrown. This can even happen when the `child_process`
+object did not emit `exit yet. Therefore it is wise to wrap the `kill` call in
+a try..catch block.
 
 See `kill(2)`
 
